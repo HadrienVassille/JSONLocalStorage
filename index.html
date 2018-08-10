@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 : Web Storage</title>
+    <meta name="viewport" content="width=device-width">
+
+</head>
+
+<body>
+
+<h1>Web Storage</h1>
+
+<div id="wrap">
+
+    <h2>Demo - Storing a JSON object (book) with LocalSession</h2>
+
+
+    <form>
+        <p><label>Title</label></p>
+        <p><input id="title" name="title" type="text"></p>
+        <p><label>Author</label></p>
+        <p><input id="author" name="author" type="text"></p>
+        <p><label>Year of release</label></p>
+        <p><input id="year" name="year" type="number"></p>
+        <p>
+            <input type="button" value="Memorize" id="storage">
+            <input type="reset" value="Erase all">
+            <input type="button" value="Get the infos back" id="lecture">
+        </p>
+    </form>
+
+    <p class="hint">Usage :<br>
+        1. Fill the formular<br>
+        2. Click on Memorize <br>
+        3. Erase all<br>
+        3. Click on "Get the infos back" to retrieve the values from the LocalStorage<br>
+    </p>
+
+</div>
+
+
+<script>
+    // Storage
+    document.getElementById('storage').onclick = function() {
+        if(typeof localStorage!='undefined' && JSON) {
+            var book = {
+                title:document.getElementById('title').value,
+                author:document.getElementById('author').value,
+                year:document.getElementById('year').value,
+            };
+            localStorage.setItem('book',JSON.stringify(book));
+            alert("Book saved");
+        } else alert("localStorage is not supported");
+    };
+    // Lecture
+    document.getElementById('lecture').onclick = function() {
+        if(typeof localStorage!='undefined' && JSON) {
+            var book = JSON.parse(localStorage.getItem('book'));
+            document.getElementById('title').value = book.title;
+            document.getElementById('author').value = book.author;
+            document.getElementById('year').value = book.year;
+            alert("Lecture Done");
+        } else alert("localStorage is not supported");
+    };
+</script>
+
+</body>
+</html>
